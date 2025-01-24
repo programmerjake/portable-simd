@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/core_simd/src/masks.rs`."><title>masks.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-e883e87179a81222.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="core_simd" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (d86d65bbc 2023-12-10)" data-channel="nightly" data-search-js="search-5a66c239c06b3a66.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../static.files/storage-bc37acceda91d44a.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/core_simd/src/masks.rs`."><title>masks.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-c579a84d.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="core_simd" data-themes="" data-resource-suffix="" data-rustdoc-version="1.86.0-nightly (419b3e2d3 2025-01-15)" data-channel="nightly" data-search-js="search-1429c0ba.js" data-settings-js="settings-0f613d39.js" ><script src="../../static.files/storage-59e33391.js"></script><script defer src="../../static.files/src-script-56102188.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">core_simd/</div>masks.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -659,31 +660,7 @@
 <a href="#659" id="659">659</a>
 <a href="#660" id="660">660</a>
 <a href="#661" id="661">661</a>
-<a href="#662" id="662">662</a>
-<a href="#663" id="663">663</a>
-<a href="#664" id="664">664</a>
-<a href="#665" id="665">665</a>
-<a href="#666" id="666">666</a>
-<a href="#667" id="667">667</a>
-<a href="#668" id="668">668</a>
-<a href="#669" id="669">669</a>
-<a href="#670" id="670">670</a>
-<a href="#671" id="671">671</a>
-<a href="#672" id="672">672</a>
-<a href="#673" id="673">673</a>
-<a href="#674" id="674">674</a>
-<a href="#675" id="675">675</a>
-<a href="#676" id="676">676</a>
-<a href="#677" id="677">677</a>
-<a href="#678" id="678">678</a>
-<a href="#679" id="679">679</a>
-<a href="#680" id="680">680</a>
-<a href="#681" id="681">681</a>
-<a href="#682" id="682">682</a>
-<a href="#683" id="683">683</a>
-<a href="#684" id="684">684</a>
-<a href="#685" id="685">685</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Types and traits associated with masking elements of vectors.
+<a href="#662" id="662">662</a></pre></div><pre class="rust"><code><span class="doccomment">//! Types and traits associated with masking elements of vectors.
 //! Types representing
 </span><span class="attr">#![allow(non_camel_case_types)]
 
@@ -697,9 +674,7 @@
 </span>)]
 </span><span class="kw">mod </span>mask_impl;
 
-<span class="kw">use </span><span class="kw">crate</span>::simd::{
-    cmp::SimdPartialEq, intrinsics, LaneCount, Simd, SimdCast, SimdElement, SupportedLaneCount,
-};
+<span class="kw">use </span><span class="kw">crate</span>::simd::{LaneCount, Simd, SimdCast, SimdElement, SupportedLaneCount};
 <span class="kw">use </span>core::cmp::Ordering;
 <span class="kw">use </span>core::{fmt, mem};
 
@@ -720,7 +695,8 @@
 
         <span class="kw">fn </span>eq(<span class="self">self</span>, other: <span class="self">Self</span>) -&gt; bool;
 
-        <span class="kw">fn </span>as_usize(<span class="self">self</span>) -&gt; usize;
+        <span class="kw">fn </span>to_usize(<span class="self">self</span>) -&gt; usize;
+        <span class="kw">fn </span>max_unsigned() -&gt; u64;
 
         <span class="kw">type </span>Unsigned: SimdElement;
 
@@ -737,7 +713,7 @@
 /// Type must be a signed integer.
 </span><span class="kw">pub unsafe trait </span>MaskElement: SimdElement&lt;Mask = <span class="self">Self</span>&gt; + SimdCast + Sealed {}
 
-<span class="macro">macro_rules! </span>impl_element {
+<span class="macro">macro_rules!</span> impl_element {
     { <span class="macro-nonterminal">$ty</span>:ty, <span class="macro-nonterminal">$unsigned</span>:ty } =&gt; {
         <span class="kw">impl </span>Sealed <span class="kw">for </span><span class="macro-nonterminal">$ty </span>{
             <span class="attr">#[inline]
@@ -745,15 +721,29 @@
             <span class="kw">where
                 </span>LaneCount&lt;N&gt;: SupportedLaneCount,
             {
-                (value.simd_eq(Simd::splat(<span class="number">0 </span><span class="kw">as _</span>)) | value.simd_eq(Simd::splat(-<span class="number">1 </span><span class="kw">as _</span>))).all()
+                <span class="comment">// We can't use `Simd` directly, because `Simd`'s functions call this function and
+                // we will end up with an infinite loop.
+                // Safety: `value` is an integer vector
+                </span><span class="kw">unsafe </span>{
+                    <span class="kw">use </span>core::intrinsics::simd;
+                    <span class="kw">let </span>falses: Simd&lt;<span class="self">Self</span>, N&gt; = simd::simd_eq(value, Simd::splat(<span class="number">0 </span><span class="kw">as _</span>));
+                    <span class="kw">let </span>trues: Simd&lt;<span class="self">Self</span>, N&gt; = simd::simd_eq(value, Simd::splat(-<span class="number">1 </span><span class="kw">as _</span>));
+                    <span class="kw">let </span>valid: Simd&lt;<span class="self">Self</span>, N&gt; = simd::simd_or(falses, trues);
+                    simd::simd_reduce_all(valid)
+                }
             }
 
             <span class="attr">#[inline]
             </span><span class="kw">fn </span>eq(<span class="self">self</span>, other: <span class="self">Self</span>) -&gt; bool { <span class="self">self </span>== other }
 
             <span class="attr">#[inline]
-            </span><span class="kw">fn </span>as_usize(<span class="self">self</span>) -&gt; usize {
+            </span><span class="kw">fn </span>to_usize(<span class="self">self</span>) -&gt; usize {
                 <span class="self">self </span><span class="kw">as </span>usize
+            }
+
+            <span class="attr">#[inline]
+            </span><span class="kw">fn </span>max_unsigned() -&gt; u64 {
+                &lt;<span class="macro-nonterminal">$unsigned</span>&gt;::MAX <span class="kw">as </span>u64
             }
 
             <span class="kw">type </span>Unsigned = <span class="macro-nonterminal">$unsigned</span>;
@@ -767,11 +757,11 @@
     }
 }
 
-<span class="macro">impl_element! </span>{ i8, u8 }
-<span class="macro">impl_element! </span>{ i16, u16 }
-<span class="macro">impl_element! </span>{ i32, u32 }
-<span class="macro">impl_element! </span>{ i64, u64 }
-<span class="macro">impl_element! </span>{ isize, usize }
+<span class="macro">impl_element!</span> { i8, u8 }
+<span class="macro">impl_element!</span> { i16, u16 }
+<span class="macro">impl_element!</span> { i32, u32 }
+<span class="macro">impl_element!</span> { i64, u64 }
+<span class="macro">impl_element!</span> { isize, usize }
 
 <span class="doccomment">/// A SIMD vector mask for `N` elements of width specified by `Element`.
 ///
@@ -809,7 +799,7 @@
     </span>T: MaskElement,
     LaneCount&lt;N&gt;: SupportedLaneCount,
 {
-    <span class="doccomment">/// Construct a mask by setting all elements to the given value.
+    <span class="doccomment">/// Constructs a mask by setting all elements to the given value.
     </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>splat(value: bool) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>(mask_impl::Mask::splat(value))
@@ -826,8 +816,9 @@
         // but these are "dependently-sized" types, so copy elision it is!
         </span><span class="kw">unsafe </span>{
             <span class="kw">let </span>bytes: [u8; N] = mem::transmute_copy(<span class="kw-2">&amp;</span>array);
-            <span class="kw">let </span>bools: Simd&lt;i8, N&gt; = intrinsics::simd_ne(Simd::from_array(bytes), Simd::splat(<span class="number">0u8</span>));
-            Mask::from_int_unchecked(intrinsics::simd_cast(bools))
+            <span class="kw">let </span>bools: Simd&lt;i8, N&gt; =
+                core::intrinsics::simd::simd_ne(Simd::from_array(bytes), Simd::splat(<span class="number">0u8</span>));
+            Mask::from_int_unchecked(core::intrinsics::simd::simd_cast(bools))
         }
     }
 
@@ -845,7 +836,7 @@
         // This would be hypothetically valid as an "in-place" transmute,
         // but these are "dependently-sized" types, so copy elision it is!
         </span><span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>bytes: Simd&lt;i8, N&gt; = intrinsics::simd_cast(<span class="self">self</span>.to_int());
+            <span class="kw">let </span><span class="kw-2">mut </span>bytes: Simd&lt;i8, N&gt; = core::intrinsics::simd::simd_cast(<span class="self">self</span>.to_int());
             bytes &amp;= Simd::splat(<span class="number">1i8</span>);
             mem::transmute_copy(<span class="kw-2">&amp;</span>bytes)
         }
@@ -860,7 +851,10 @@
     #[must_use = <span class="string">"method returns a new mask and does not mutate the original value"</span>]
     </span><span class="kw">pub unsafe fn </span>from_int_unchecked(value: Simd&lt;T, N&gt;) -&gt; <span class="self">Self </span>{
         <span class="comment">// Safety: the caller must confirm this invariant
-        </span><span class="kw">unsafe </span>{ <span class="self">Self</span>(mask_impl::Mask::from_int_unchecked(value)) }
+        </span><span class="kw">unsafe </span>{
+            core::intrinsics::assume(&lt;T <span class="kw">as </span>Sealed&gt;::valid(value));
+            <span class="self">Self</span>(mask_impl::Mask::from_int_unchecked(value))
+        }
     }
 
     <span class="doccomment">/// Converts a vector of integers to a mask, where 0 represents `false` and -1
@@ -956,7 +950,7 @@
         <span class="self">self</span>.<span class="number">0</span>.all()
     }
 
-    <span class="doccomment">/// Create a bitmask from a mask.
+    <span class="doccomment">/// Creates a bitmask from a mask.
     ///
     /// Each bit is set if the corresponding element in the mask is `true`.
     /// If the mask contains more than 64 elements, the bitmask is truncated to the first 64.
@@ -966,7 +960,7 @@
         <span class="self">self</span>.<span class="number">0</span>.to_bitmask_integer()
     }
 
-    <span class="doccomment">/// Create a mask from a bitmask.
+    <span class="doccomment">/// Creates a mask from a bitmask.
     ///
     /// For each bit, if it is set, the corresponding element in the mask is set to `true`.
     /// If the mask contains more than 64 elements, the remainder are set to `false`.
@@ -976,49 +970,7 @@
         <span class="self">Self</span>(mask_impl::Mask::from_bitmask_integer(bitmask))
     }
 
-    <span class="doccomment">/// Create a bitmask vector from a mask.
-    ///
-    /// Each bit is set if the corresponding element in the mask is `true`.
-    /// The remaining bits are unset.
-    ///
-    /// The bits are packed into the first N bits of the vector:
-    /// ```
-    /// # #![feature(portable_simd)]
-    /// # #[cfg(feature = "as_crate")] use core_simd::simd;
-    /// # #[cfg(not(feature = "as_crate"))] use core::simd;
-    /// # use simd::mask32x8;
-    /// let mask = mask32x8::from_array([true, false, true, false, false, false, true, false]);
-    /// assert_eq!(mask.to_bitmask_vector()[0], 0b01000101);
-    /// ```
-    </span><span class="attr">#[inline]
-    #[must_use = <span class="string">"method returns a new integer and does not mutate the original value"</span>]
-    </span><span class="kw">pub fn </span>to_bitmask_vector(<span class="self">self</span>) -&gt; Simd&lt;u8, N&gt; {
-        <span class="self">self</span>.<span class="number">0</span>.to_bitmask_vector()
-    }
-
-    <span class="doccomment">/// Create a mask from a bitmask vector.
-    ///
-    /// For each bit, if it is set, the corresponding element in the mask is set to `true`.
-    ///
-    /// The bits are packed into the first N bits of the vector:
-    /// ```
-    /// # #![feature(portable_simd)]
-    /// # #[cfg(feature = "as_crate")] use core_simd::simd;
-    /// # #[cfg(not(feature = "as_crate"))] use core::simd;
-    /// # use simd::{mask32x8, u8x8};
-    /// let bitmask = u8x8::from_array([0b01000101, 0, 0, 0, 0, 0, 0, 0]);
-    /// assert_eq!(
-    ///     mask32x8::from_bitmask_vector(bitmask),
-    ///     mask32x8::from_array([true, false, true, false, false, false, true, false]),
-    /// );
-    /// ```
-    </span><span class="attr">#[inline]
-    #[must_use = <span class="string">"method returns a new mask and does not mutate the original value"</span>]
-    </span><span class="kw">pub fn </span>from_bitmask_vector(bitmask: Simd&lt;u8, N&gt;) -&gt; <span class="self">Self </span>{
-        <span class="self">Self</span>(mask_impl::Mask::from_bitmask_vector(bitmask))
-    }
-
-    <span class="doccomment">/// Find the index of the first set element.
+    <span class="doccomment">/// Finds the index of the first set element.
     ///
     /// ```
     /// # #![feature(portable_simd)]
@@ -1059,15 +1011,17 @@
         );
 
         <span class="comment">// Safety: the input and output are integer vectors
-        </span><span class="kw">let </span>index: Simd&lt;T, N&gt; = <span class="kw">unsafe </span>{ intrinsics::simd_cast(index) };
+        </span><span class="kw">let </span>index: Simd&lt;T, N&gt; = <span class="kw">unsafe </span>{ core::intrinsics::simd::simd_cast(index) };
 
         <span class="kw">let </span>masked_index = <span class="self">self</span>.select(index, <span class="self">Self</span>::splat(<span class="bool-val">true</span>).to_int());
 
         <span class="comment">// Safety: the input and output are integer vectors
-        </span><span class="kw">let </span>masked_index: Simd&lt;T::Unsigned, N&gt; = <span class="kw">unsafe </span>{ intrinsics::simd_cast(masked_index) };
+        </span><span class="kw">let </span>masked_index: Simd&lt;T::Unsigned, N&gt; =
+            <span class="kw">unsafe </span>{ core::intrinsics::simd::simd_cast(masked_index) };
 
         <span class="comment">// Safety: the input is an integer vector
-        </span><span class="kw">let </span>min_index: T::Unsigned = <span class="kw">unsafe </span>{ intrinsics::simd_reduce_min(masked_index) };
+        </span><span class="kw">let </span>min_index: T::Unsigned =
+            <span class="kw">unsafe </span>{ core::intrinsics::simd::simd_reduce_min(masked_index) };
 
         <span class="comment">// Safety: the return value is the unsigned version of T
         </span><span class="kw">let </span>min_index: T = <span class="kw">unsafe </span>{ core::mem::transmute_copy(<span class="kw-2">&amp;</span>min_index) };
@@ -1075,7 +1029,7 @@
         <span class="kw">if </span>min_index.eq(T::TRUE) {
             <span class="prelude-val">None
         </span>} <span class="kw">else </span>{
-            <span class="prelude-val">Some</span>(min_index.as_usize())
+            <span class="prelude-val">Some</span>(min_index.to_usize())
         }
     }
 }
@@ -1348,7 +1302,7 @@
     }
 }
 
-<span class="macro">macro_rules! </span>impl_from {
+<span class="macro">macro_rules!</span> impl_from {
     { <span class="macro-nonterminal">$from</span>:ty  =&gt; $(<span class="macro-nonterminal">$to</span>:ty),* } =&gt; {
         $(
         <span class="kw">impl</span>&lt;<span class="kw">const </span>N: usize&gt; From&lt;Mask&lt;<span class="macro-nonterminal">$from</span>, N&gt;&gt; <span class="kw">for </span>Mask&lt;<span class="macro-nonterminal">$to</span>, N&gt;
@@ -1363,9 +1317,9 @@
         )*
     }
 }
-<span class="macro">impl_from! </span>{ i8 =&gt; i16, i32, i64, isize }
-<span class="macro">impl_from! </span>{ i16 =&gt; i32, i64, isize, i8 }
-<span class="macro">impl_from! </span>{ i32 =&gt; i64, isize, i8, i16 }
-<span class="macro">impl_from! </span>{ i64 =&gt; isize, i8, i16, i32 }
-<span class="macro">impl_from! </span>{ isize =&gt; i8, i16, i32, i64 }
+<span class="macro">impl_from!</span> { i8 =&gt; i16, i32, i64, isize }
+<span class="macro">impl_from!</span> { i16 =&gt; i32, i64, isize, i8 }
+<span class="macro">impl_from!</span> { i32 =&gt; i64, isize, i8, i16 }
+<span class="macro">impl_from!</span> { i64 =&gt; isize, i8, i16, i32 }
+<span class="macro">impl_from!</span> { isize =&gt; i8, i16, i32, i64 }
 </code></pre></div></section></main></body></html>

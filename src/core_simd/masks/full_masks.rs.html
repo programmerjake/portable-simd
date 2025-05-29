@@ -294,17 +294,12 @@
 <a href="#293" id="293">293</a>
 <a href="#294" id="294">294</a>
 <a href="#295" id="295">295</a>
-<a href="#296" id="296">296</a>
-<a href="#297" id="297">297</a>
-<a href="#298" id="298">298</a>
-<a href="#299" id="299">299</a>
-<a href="#300" id="300">300</a>
-<a href="#301" id="301">301</a></pre></div><pre class="rust"><code><span class="doccomment">//! Masks that take up full SIMD vector registers.
+<a href="#296" id="296">296</a></pre></div><pre class="rust"><code><span class="doccomment">//! Masks that take up full SIMD vector registers.
 
 </span><span class="kw">use </span><span class="kw">crate</span>::simd::{LaneCount, MaskElement, Simd, SupportedLaneCount};
 
 <span class="attr">#[repr(transparent)]
-</span><span class="kw">pub struct </span>Mask&lt;T, <span class="kw">const </span>N: usize&gt;(Simd&lt;T, N&gt;)
+</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Mask&lt;T, <span class="kw">const </span>N: usize&gt;(Simd&lt;T, N&gt;)
 <span class="kw">where
     </span>T: MaskElement,
     LaneCount&lt;N&gt;: SupportedLaneCount;
@@ -322,7 +317,6 @@
     LaneCount&lt;N&gt;: SupportedLaneCount,
 {
     <span class="attr">#[inline]
-    #[must_use = <span class="string">"method returns a new mask and does not mutate the original value"</span>]
     </span><span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="kw-2">*</span><span class="self">self
     </span>}
@@ -382,7 +376,7 @@
             <span class="attr">#[inline(always)]
             </span><span class="kw">fn </span>reverse_bits(<span class="self">self</span>, n: usize) -&gt; <span class="self">Self </span>{
                 <span class="kw">let </span>rev = &lt;<span class="macro-nonterminal">$int</span>&gt;::reverse_bits(<span class="self">self</span>);
-                <span class="kw">let </span>bitsize = core::mem::size_of::&lt;<span class="macro-nonterminal">$int</span>&gt;() * <span class="number">8</span>;
+                <span class="kw">let </span>bitsize = size_of::&lt;<span class="macro-nonterminal">$int</span>&gt;() * <span class="number">8</span>;
                 <span class="kw">if </span>n &lt; bitsize {
                     <span class="comment">// Shift things back to the right
                     </span>rev &gt;&gt; (bitsize - n)
@@ -404,36 +398,36 @@
 {
     <span class="attr">#[inline]
     #[must_use = <span class="string">"method returns a new mask and does not mutate the original value"</span>]
-    </span><span class="kw">pub fn </span>splat(value: bool) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>splat(value: bool) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>(Simd::splat(<span class="kw">if </span>value { T::TRUE } <span class="kw">else </span>{ T::FALSE }))
     }
 
     <span class="attr">#[inline]
     #[must_use = <span class="string">"method returns a new bool and does not mutate the original value"</span>]
-    </span><span class="kw">pub unsafe fn </span>test_unchecked(<span class="kw-2">&amp;</span><span class="self">self</span>, lane: usize) -&gt; bool {
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">unsafe fn </span>test_unchecked(<span class="kw-2">&amp;</span><span class="self">self</span>, lane: usize) -&gt; bool {
         T::eq(<span class="self">self</span>.<span class="number">0</span>[lane], T::TRUE)
     }
 
     <span class="attr">#[inline]
-    </span><span class="kw">pub unsafe fn </span>set_unchecked(<span class="kw-2">&amp;mut </span><span class="self">self</span>, lane: usize, value: bool) {
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">unsafe fn </span>set_unchecked(<span class="kw-2">&amp;mut </span><span class="self">self</span>, lane: usize, value: bool) {
         <span class="self">self</span>.<span class="number">0</span>[lane] = <span class="kw">if </span>value { T::TRUE } <span class="kw">else </span>{ T::FALSE }
     }
 
     <span class="attr">#[inline]
     #[must_use = <span class="string">"method returns a new vector and does not mutate the original value"</span>]
-    </span><span class="kw">pub fn </span>to_int(<span class="self">self</span>) -&gt; Simd&lt;T, N&gt; {
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>to_int(<span class="self">self</span>) -&gt; Simd&lt;T, N&gt; {
         <span class="self">self</span>.<span class="number">0
     </span>}
 
     <span class="attr">#[inline]
     #[must_use = <span class="string">"method returns a new mask and does not mutate the original value"</span>]
-    </span><span class="kw">pub unsafe fn </span>from_int_unchecked(value: Simd&lt;T, N&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">unsafe fn </span>from_int_unchecked(value: Simd&lt;T, N&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>(value)
     }
 
     <span class="attr">#[inline]
     #[must_use = <span class="string">"method returns a new mask and does not mutate the original value"</span>]
-    </span><span class="kw">pub fn </span>convert&lt;U&gt;(<span class="self">self</span>) -&gt; Mask&lt;U, N&gt;
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>convert&lt;U&gt;(<span class="self">self</span>) -&gt; Mask&lt;U, N&gt;
     <span class="kw">where
         </span>U: MaskElement,
     {
@@ -522,14 +516,14 @@
 
     <span class="attr">#[inline]
     #[must_use = <span class="string">"method returns a new bool and does not mutate the original value"</span>]
-    </span><span class="kw">pub fn </span>any(<span class="self">self</span>) -&gt; bool {
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>any(<span class="self">self</span>) -&gt; bool {
         <span class="comment">// Safety: use `self` as an integer vector
         </span><span class="kw">unsafe </span>{ core::intrinsics::simd::simd_reduce_any(<span class="self">self</span>.to_int()) }
     }
 
     <span class="attr">#[inline]
     #[must_use = <span class="string">"method returns a new bool and does not mutate the original value"</span>]
-    </span><span class="kw">pub fn </span>all(<span class="self">self</span>) -&gt; bool {
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>all(<span class="self">self</span>) -&gt; bool {
         <span class="comment">// Safety: use `self` as an integer vector
         </span><span class="kw">unsafe </span>{ core::intrinsics::simd::simd_reduce_all(<span class="self">self</span>.to_int()) }
     }
@@ -553,7 +547,6 @@
 {
     <span class="kw">type </span>Output = <span class="self">Self</span>;
     <span class="attr">#[inline]
-    #[must_use = <span class="string">"method returns a new mask and does not mutate the original value"</span>]
     </span><span class="kw">fn </span>bitand(<span class="self">self</span>, rhs: <span class="self">Self</span>) -&gt; <span class="self">Self </span>{
         <span class="comment">// Safety: `self` is an integer vector
         </span><span class="kw">unsafe </span>{ <span class="self">Self</span>(core::intrinsics::simd::simd_and(<span class="self">self</span>.<span class="number">0</span>, rhs.<span class="number">0</span>)) }
@@ -567,7 +560,6 @@
 {
     <span class="kw">type </span>Output = <span class="self">Self</span>;
     <span class="attr">#[inline]
-    #[must_use = <span class="string">"method returns a new mask and does not mutate the original value"</span>]
     </span><span class="kw">fn </span>bitor(<span class="self">self</span>, rhs: <span class="self">Self</span>) -&gt; <span class="self">Self </span>{
         <span class="comment">// Safety: `self` is an integer vector
         </span><span class="kw">unsafe </span>{ <span class="self">Self</span>(core::intrinsics::simd::simd_or(<span class="self">self</span>.<span class="number">0</span>, rhs.<span class="number">0</span>)) }
@@ -581,7 +573,6 @@
 {
     <span class="kw">type </span>Output = <span class="self">Self</span>;
     <span class="attr">#[inline]
-    #[must_use = <span class="string">"method returns a new mask and does not mutate the original value"</span>]
     </span><span class="kw">fn </span>bitxor(<span class="self">self</span>, rhs: <span class="self">Self</span>) -&gt; <span class="self">Self </span>{
         <span class="comment">// Safety: `self` is an integer vector
         </span><span class="kw">unsafe </span>{ <span class="self">Self</span>(core::intrinsics::simd::simd_xor(<span class="self">self</span>.<span class="number">0</span>, rhs.<span class="number">0</span>)) }
@@ -595,7 +586,6 @@
 {
     <span class="kw">type </span>Output = <span class="self">Self</span>;
     <span class="attr">#[inline]
-    #[must_use = <span class="string">"method returns a new mask and does not mutate the original value"</span>]
     </span><span class="kw">fn </span>not(<span class="self">self</span>) -&gt; <span class="self">Self</span>::Output {
         <span class="self">Self</span>::splat(<span class="bool-val">true</span>) ^ <span class="self">self
     </span>}

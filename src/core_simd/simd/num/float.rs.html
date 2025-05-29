@@ -453,8 +453,8 @@
 <a href="#452" id="452">452</a>
 <a href="#453" id="453">453</a></pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::sealed::Sealed;
 <span class="kw">use </span><span class="kw">crate</span>::simd::{
-    cmp::{SimdPartialEq, SimdPartialOrd},
     LaneCount, Mask, Simd, SimdCast, SimdElement, SupportedLaneCount,
+    cmp::{SimdPartialEq, SimdPartialOrd},
 };
 
 <span class="doccomment">/// Operations on SIMD vectors of floats.
@@ -716,7 +716,8 @@
                 </span><span class="kw">unsafe </span>{ core::intrinsics::simd::simd_as(<span class="self">self</span>) }
             }
 
-            <span class="comment">// https://github.com/llvm/llvm-project/issues/94694
+            <span class="comment">// workaround for https://github.com/llvm/llvm-project/issues/94694 (fixed in LLVM 20)
+            // tracked in: https://github.com/rust-lang/rust/issues/135982
             </span><span class="attr">#[cfg(target_arch = <span class="string">"aarch64"</span>)]
             #[inline]
             </span><span class="kw">fn </span>cast&lt;T: SimdCast&gt;(<span class="self">self</span>) -&gt; <span class="self">Self</span>::Cast&lt;T&gt;
@@ -755,14 +756,14 @@
 
             <span class="attr">#[inline]
             </span><span class="kw">fn </span>to_bits(<span class="self">self</span>) -&gt; Simd&lt;<span class="macro-nonterminal">$bits_ty</span>, N&gt; {
-                <span class="macro">assert_eq!</span>(core::mem::size_of::&lt;<span class="self">Self</span>&gt;(), core::mem::size_of::&lt;<span class="self">Self</span>::Bits&gt;());
+                <span class="macro">assert_eq!</span>(size_of::&lt;<span class="self">Self</span>&gt;(), size_of::&lt;<span class="self">Self</span>::Bits&gt;());
                 <span class="comment">// Safety: transmuting between vector types is safe
                 </span><span class="kw">unsafe </span>{ core::mem::transmute_copy(<span class="kw-2">&amp;</span><span class="self">self</span>) }
             }
 
             <span class="attr">#[inline]
             </span><span class="kw">fn </span>from_bits(bits: Simd&lt;<span class="macro-nonterminal">$bits_ty</span>, N&gt;) -&gt; <span class="self">Self </span>{
-                <span class="macro">assert_eq!</span>(core::mem::size_of::&lt;<span class="self">Self</span>&gt;(), core::mem::size_of::&lt;<span class="self">Self</span>::Bits&gt;());
+                <span class="macro">assert_eq!</span>(size_of::&lt;<span class="self">Self</span>&gt;(), size_of::&lt;<span class="self">Self</span>::Bits&gt;());
                 <span class="comment">// Safety: transmuting between vector types is safe
                 </span><span class="kw">unsafe </span>{ core::mem::transmute_copy(<span class="kw-2">&amp;</span>bits) }
             }
@@ -824,7 +825,6 @@
             }
 
             <span class="attr">#[inline]
-            #[must_use = <span class="string">"method returns a new mask and does not mutate the original value"</span>]
             </span><span class="kw">fn </span>is_normal(<span class="self">self</span>) -&gt; <span class="self">Self</span>::Mask {
                 !(<span class="self">self</span>.abs().simd_eq(<span class="self">Self</span>::splat(<span class="number">0.0</span>)) | <span class="self">self</span>.is_nan() | <span class="self">self</span>.is_subnormal() | <span class="self">self</span>.is_infinite())
             }

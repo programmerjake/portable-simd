@@ -1251,10 +1251,10 @@
 <a href="#1250" id="1250">1250</a>
 <a href="#1251" id="1251">1251</a>
 <a href="#1252" id="1252">1252</a></pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::simd::{
+    LaneCount, Mask, MaskElement, SupportedLaneCount, Swizzle,
     cmp::SimdPartialOrd,
     num::SimdUint,
     ptr::{SimdConstPtr, SimdMutPtr},
-    LaneCount, Mask, MaskElement, SupportedLaneCount, Swizzle,
 };
 
 <span class="doccomment">/// A SIMD vector with the shape of `[T; N]` but the operations of `T`.
@@ -1335,7 +1335,7 @@
 /// converting `[T]` to `[Simd&lt;T, N&gt;]`, and allows soundly operating on an aligned SIMD body,
 /// but it may cost more time when handling the scalar head and tail.
 /// If these are not enough, it is most ideal to design data structures to be already aligned
-/// to `mem::align_of::&lt;Simd&lt;T, N&gt;&gt;()` before using `unsafe` Rust to read or write.
+/// to `align_of::&lt;Simd&lt;T, N&gt;&gt;()` before using `unsafe` Rust to read or write.
 /// Other ways to compensate for these facts, like materializing `Simd` to or from an array first,
 /// are handled by safe methods like [`Simd::from_array`] and [`Simd::from_slice`].
 ///
